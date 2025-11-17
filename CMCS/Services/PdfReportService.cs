@@ -1,10 +1,8 @@
-﻿// In Services/PdfReportService.cs - Use full namespace or alias
-using CMCS.Models;
+﻿using CMCS.Models;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
-using Document = QuestPDF.Fluent.Document; // ADD THIS ALIAS
-
+using Document = QuestPDF.Fluent.Document; 
 namespace CMCS.Services
 {
     public interface IPdfReportService
