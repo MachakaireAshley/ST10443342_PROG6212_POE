@@ -1,19 +1,590 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@using CMCS.Models
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - CMCS</title>
-    <script type="importmap"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/CMCS.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" />
+    <style>
+        :root {
+            /* Light Theme - Clean Black & White */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --bg-card: #ffffff;
+            --text-primary: #000000;
+            --text-secondary: #404040;
+            --text-muted: #666666;
+            --border-color: #dee2e6;
+            --navbar-bg: #000000;
+            --navbar-text: #ffffff;
+            --accent-color: #333333;
+            --primary-color: #000000;
+            --primary-dark: #000000;
+            --primary-light: #333333;
+            --success-color: #28a745;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
+            --info-color: #17a2b8;
+            --shadow: 0 4px 6px rgba(0,0,0,0.1);
+            --shadow-hover: 0 8px 15px rgba(0,0,0,0.15);
+            --gradient-primary: linear-gradient(135deg, #000000, #333333);
+            --gradient-secondary: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            --gradient-success: linear-gradient(135deg, #28a745, #34ce57);
+            --gradient-warning: linear-gradient(135deg, #ffc107, #ffd351);
+            --gradient-danger: linear-gradient(135deg, #dc3545, #e4606d);
+            /* Layout */
+            --radius-sm: 6px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --transition: all 0.3s ease;
+        }
+
+        [data-theme="dark"] {
+            /* Dark Theme - High Contrast Dark Mode */
+            --bg-primary: #121212;
+            --bg-secondary: #1e1e1e;
+            --bg-card: #2d2d2d;
+            --text-primary: #ffffff;
+            --text-secondary: #e0e0e0;
+            --text-muted: #b0b0b0;
+            --border-color: #404040;
+            --navbar-bg: #000000;
+            --navbar-text: #ffffff;
+            --accent-color: #ffffff;
+            --primary-color: #ffffff;
+            --primary-dark: #cccccc;
+            --primary-light: #f0f0f0;
+            --success-color: #4caf50;
+            --warning-color: #ffb74d;
+            --danger-color: #f44336;
+            --info-color: #29b6f6;
+            --shadow: 0 4px 6px rgba(0,0,0,0.3);
+            --shadow-hover: 0 8px 15px rgba(0,0,0,0.4);
+            --gradient-primary: linear-gradient(135deg, #333333, #555555);
+            --gradient-secondary: linear-gradient(135deg, #1e1e1e, #2d2d2d);
+            --gradient-success: linear-gradient(135deg, #2e7d32, #4caf50);
+            --gradient-warning: linear-gradient(135deg, #f57c00, #ffb74d);
+            --gradient-danger: linear-gradient(135deg, #c62828, #f44336);
+        }
+
+        /* Background Animation */
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.03;
+        }
+
+        /* Base Styles */
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: var(--transition);
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 0;
+        }
+
+        .container {
+            flex: 1;
+            padding-bottom: 4rem;
+        }
+
+        /* Typography - Ensure Good Contrast */
+        h1, h2, h3, h4, h5, h6 {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .text-muted {
+            color: var(--text-muted) !important;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: var(--navbar-bg) !important;
+            border-bottom: 2px solid var(--accent-color);
+            box-shadow: var(--shadow);
+            padding: 1rem 0;
+        }
+
+        .navbar-brand {
+            color: var(--navbar-text) !important;
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .nav-link {
+            color: var(--navbar-text) !important;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 1rem !important;
+            border-radius: 4px;
+        }
+
+            .nav-link:hover {
+                background: rgba(255,255,255,0.15);
+                color: var(--navbar-text) !important;
+            }
+
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+            .card:hover {
+                transform: translateY(-2px);
+                box-shadow: var(--shadow-hover);
+            }
+
+        .card-header {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border-bottom: 1px solid var(--border-color);
+            font-weight: 600;
+            padding: 1rem 1.25rem;
+        }
+
+        /* Buttons */
+        .btn {
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            transition: var(--transition);
+            border: 2px solid transparent;
+            padding: 0.5rem 1.25rem;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+            .btn-primary:hover {
+                background: var(--primary-dark);
+                border-color: var(--primary-dark);
+                transform: translateY(-1px);
+                color: white;
+            }
+
+        .btn-success {
+            background: var(--gradient-success);
+            color: white;
+            border-color: var(--success-color);
+        }
+
+            .btn-success:hover {
+                background: var(--success-color);
+                border-color: var(--success-color);
+                color: white;
+            }
+
+        .btn-danger {
+            background: var(--gradient-danger);
+            color: white;
+            border-color: var(--danger-color);
+        }
+
+            .btn-danger:hover {
+                background: var(--danger-color);
+                border-color: var(--danger-color);
+                color: white;
+            }
+
+        .btn-warning {
+            background: var(--gradient-warning);
+            color: #000000;
+            border-color: var(--warning-color);
+        }
+
+            .btn-warning:hover {
+                background: var(--warning-color);
+                border-color: var(--warning-color);
+                color: #000000;
+            }
+
+        .btn-info {
+            background: var(--info-color);
+            color: white;
+            border-color: var(--info-color);
+        }
+
+        .btn-outline-primary {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+            background: transparent;
+        }
+
+            .btn-outline-primary:hover {
+                background: var(--primary-color);
+                color: white;
+            }
+
+        /* Tables - Fixed for Dark Mode */
+        .table {
+            color: var(--text-primary);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+        }
+
+            .table th {
+                background: var(--gradient-primary);
+                color: white;
+                border: none;
+                font-weight: 600;
+                padding: 1rem;
+                white-space: nowrap;
+            }
+
+            .table td {
+                border-color: var(--border-color);
+                padding: 1rem;
+                background: var(--bg-card);
+                color: var(--text-primary);
+                vertical-align: middle;
+            }
+
+            .table tbody tr:hover td {
+                background: var(--bg-secondary);
+                color: var(--text-primary);
+            }
+
+        /* Forms */
+        .form-control {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            border-radius: var(--radius-sm);
+            padding: 0.75rem 1rem;
+            transition: var(--transition);
+        }
+
+            .form-control:focus {
+                background: var(--bg-secondary);
+                border-color: var(--primary-color);
+                color: var(--text-primary);
+                box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.1);
+            }
+
+        .form-label {
+            color: var(--text-primary);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            background: transparent;
+            border: 2px solid var(--navbar-text);
+            color: var(--navbar-text);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            cursor: pointer;
+            margin-left: 1rem;
+        }
+
+            .theme-toggle:hover {
+                background: rgba(255,255,255,0.1);
+            }
+
+        /* Badges - Fixed Colors for Better Visibility */
+        .badge {
+            border-radius: var(--radius-sm);
+            padding: 0.4rem 0.8rem;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+
+        .bg-success {
+            background: var(--success-color) !important;
+            color: white !important;
+        }
+
+        .bg-danger {
+            background: var(--danger-color) !important;
+            color: white !important;
+        }
+
+        .bg-warning {
+            background: var(--warning-color) !important;
+            color: #000000 !important;
+        }
+
+        .bg-info {
+            background: var(--info-color) !important;
+            color: white !important;
+        }
+
+        .bg-secondary {
+            background: #6c757d !important;
+            color: white !important;
+        }
+
+        /* Status badges */
+        .badge-pending {
+            background: var(--warning-color) !important;
+            color: #000000 !important;
+        }
+
+        .badge-approved {
+            background: var(--success-color) !important;
+            color: white !important;
+        }
+
+        .badge-rejected {
+            background: var(--danger-color) !important;
+            color: white !important;
+        }
+
+        .badge-waiting-manager {
+            background: #17a2b8 !important;
+            color: white !important;
+        }
+
+        /* Alerts */
+        .alert {
+            border: none;
+            border-radius: var(--radius-md);
+            padding: 1rem 1.25rem;
+            font-weight: 500;
+            box-shadow: var(--shadow);
+            border-left: 4px solid transparent;
+            color: var(--text-primary);
+        }
+
+        .alert-success {
+            background: var(--bg-card);
+            border-left-color: var(--success-color);
+        }
+
+        .alert-danger {
+            background: var(--bg-card);
+            border-left-color: var(--danger-color);
+        }
+
+        .alert-info {
+            background: var(--bg-card);
+            border-left-color: var(--info-color);
+        }
+
+        .alert-warning {
+            background: var(--bg-card);
+            border-left-color: var(--warning-color);
+        }
+
+        /* Footer - Updated with more spacing */
+        .footer {
+            background: var(--navbar-bg);
+            color: var(--navbar-text);
+            padding: 1rem 0;
+            text-align: center;
+            margin-top: auto;
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        /* Stats Cards */
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            text-align: center;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            color: var(--text-primary);
+        }
+
+            .stat-card:hover {
+                transform: translateY(-2px);
+                box-shadow: var(--shadow-hover);
+            }
+
+            .stat-card .display-6 {
+                font-weight: 700;
+                margin-bottom: 0.5rem;
+            }
+
+            .stat-card p {
+                color: var(--text-secondary);
+                font-weight: 500;
+                margin: 0;
+            }
+
+        /* Status-specific stat cards */
+        .stat-card-pending {
+            border-top: 4px solid var(--warning-color);
+        }
+
+        .stat-card-rejected {
+            border-top: 4px solid var(--danger-color);
+        }
+
+        .stat-card-approved {
+            border-top: 4px solid var(--success-color);
+        }
+
+        .stat-card-total {
+            border-top: 4px solid var(--primary-color);
+        }
+
+        .stat-card-waiting-manager {
+            border-top: 4px solid #17a2b8;
+        }
+
+        .stat-card-pending .display-6 {
+            color: var(--warning-color);
+        }
+
+        .stat-card-rejected .display-6 {
+            color: var(--danger-color);
+        }
+
+        .stat-card-approved .display-6 {
+            color: var(--success-color);
+        }
+
+        .stat-card-total .display-6 {
+            color: var(--primary-color);
+        }
+
+        .stat-card-waiting-manager .display-6 {
+            color: #17a2b8;
+        }
+
+        /* Dropdowns */
+        .dropdown-menu {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
+        }
+
+        .dropdown-item {
+            color: var(--text-primary);
+            transition: var(--transition);
+        }
+
+            .dropdown-item:hover {
+                background: var(--bg-secondary);
+                color: var(--text-primary);
+            }
+
+        .dropdown-item-text {
+            color: var(--text-muted) !important;
+        }
+
+        /* Action buttons in tables - FIXED LAYOUT */
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            min-width: 120px;
+        }
+
+        .btn-action {
+            padding: 0.4rem 0.75rem;
+            font-size: 0.875rem;
+            margin: 0;
+            width: 100%;
+            text-align: center;
+        }
+
+        /* Animations */
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* Floating Action Button */
+        .fab {
+            position: fixed;
+            bottom: 3rem;
+            right: 2rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-hover);
+            transition: var(--transition);
+            z-index: 1000;
+            opacity: 0;
+            transform: scale(0);
+        }
+
+            .fab:hover {
+                transform: scale(1.1);
+            }
+
+        /* Main content area - Updated with more padding */
+        main {
+            flex: 1;
+            padding-bottom: 3rem;
+            min-height: calc(100vh - 200px);
+        }
+
+        /* Filter controls */
+        .filter-controls {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+    </style>
 </head>
 <body>
+    <!-- Background Animation -->
+    <canvas class="background-animation" id="backgroundCanvas"></canvas>
+
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CMCS</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <i class="bi bi-wallet2 me-2"></i>CMCS
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -21,31 +592,289 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">
+                                <i class="bi bi-house me-1"></i> Home
+                            </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
+
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <!-- Lecturer Features (for all authenticated users) -->
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="SubmitClaim">
+                                    <i class="bi bi-plus-circle me-1"></i> Submit Claim
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="ViewHistory">
+                                    <i class="bi bi-clock-history me-1"></i> My Claims
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="UploadDocuments">
+                                    <i class="bi bi-upload me-1"></i> Upload
+                                </a>
+                            </li>
+
+                            <!-- Coordinator View (Only for Coordinators and Admins) -->
+                            @if (User.IsInRole("Coordinator") || User.IsInRole("Administrator"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Coordinator" asp-action="Dashboard">
+                                        <i class="bi bi-eye me-1"></i> Coordinator
+                                    </a>
+                                </li>
+                            }
+
+                            <!-- Manager View (Only for Managers and Admins) -->
+                            @if (User.IsInRole("Manager") || User.IsInRole("Administrator"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Manager" asp-action="Dashboard">
+                                        <i class="bi bi-star me-1"></i> Manager
+                                    </a>
+                                </li>
+                            }
+
+                            <!-- Admin Features (Only for Administrators) -->
+                            @if (User.IsInRole("Administrator"))
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="bi bi-gear me-1"></i> Admin
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="adminDropdown">
+                                        <li>
+                                            <a class="dropdown-item" asp-controller="Admin" asp-action="SystemStats">
+                                                <i class="bi bi-graph-up me-2"></i> System Statistics
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" asp-controller="Admin" asp-action="Users">
+                                                <i class="bi bi-people me-2"></i> User Management
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" asp-controller="HR" asp-action="ManageLecturers">
+                                                <i class="bi bi-person-badge me-2"></i> HR Management
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            }
+
+                            <!-- Reports (for all authenticated users) -->
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="GenerateReport">
+                                    <i class="bi bi-graph-up me-1"></i> Reports
+                                </a>
+                            </li>
+                        }
                     </ul>
-                    <partial name="_LoginPartial" />
+
+                    <!-- Theme Toggle and User Info -->
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <button class="theme-toggle" id="themeToggle" title="Toggle theme">
+                                <i class="bi bi-sun-fill" id="themeIcon"></i>
+                            </button>
+                        </li>
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            var user = await UserManager.GetUserAsync(User);
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-person-circle me-1"></i> @user.FirstName
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                    <li><span class="dropdown-item-text"><small>Signed in as <strong>@user.FullName</strong></small></span></li>
+                                    <li><span class="dropdown-item-text"><small>Role: <strong>@user.Role</strong></small></span></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i> Profile</a></li>
+                                    <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i> Settings</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                                            <button type="submit" class="dropdown-item"><i class="bi bi-box-arrow-right me-2"></i> Logout</button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="Identity" asp-page="/Account/Register">Register</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="Identity" asp-page="/Account/Login">Login</a>
+                            </li>
+                        }
+                    </ul>
                 </div>
             </div>
         </nav>
     </header>
+
     <div class="container">
-        <main role="main" class="pb-3">
+        <main role="main" class="pb-3 fade-in-up">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - CMCS - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <!-- Floating Action Button -->
+    <button class="fab" onclick="scrollToTop()" title="Back to top">
+        <i class="bi bi-arrow-up"></i>
+    </button>
+
+    <footer class="footer">
+        <div class="container text-center py-3">
+            &copy; 2025 - Claims Management System -
+            <a asp-area="" asp-controller="Home" asp-action="Privacy" class="text-light">Privacy</a>
+            <span class="mx-2">•</span>
+            Clean black & white design
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script>
+        // Background Animation
+        class FloatingShapes {
+            constructor() {
+                this.canvas = document.getElementById('backgroundCanvas');
+                this.ctx = this.canvas.getContext('2d');
+                this.shapes = [];
+                this.resize();
+                this.init();
+                window.addEventListener('resize', () => this.resize());
+            }
+
+            resize() {
+                this.canvas.width = window.innerWidth;
+                this.canvas.height = window.innerHeight;
+            }
+
+            init() {
+                // Create floating shapes
+                for (let i = 0; i < 15; i++) {
+                    this.shapes.push({
+                        x: Math.random() * this.canvas.width,
+                        y: Math.random() * this.canvas.height,
+                        size: Math.random() * 60 + 20,
+                        speed: Math.random() * 0.5 + 0.1,
+                        color: `rgba(100, 100, 100, ${Math.random() * 0.1 + 0.05})`,
+                        type: Math.random() > 0.5 ? 'circle' : 'square'
+                    });
+                }
+                this.animate();
+            }
+
+            animate() {
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+                this.shapes.forEach(shape => {
+                    shape.y -= shape.speed;
+                    if (shape.y < -shape.size) {
+                        shape.y = this.canvas.height + shape.size;
+                        shape.x = Math.random() * this.canvas.width;
+                    }
+
+                    this.ctx.fillStyle = shape.color;
+
+                    if (shape.type === 'circle') {
+                        this.ctx.beginPath();
+                        this.ctx.arc(shape.x, shape.y, shape.size / 2, 0, Math.PI * 2);
+                        this.ctx.fill();
+                    } else {
+                        this.ctx.fillRect(shape.x - shape.size / 2, shape.y - shape.size / 2, shape.size, shape.size);
+                    }
+                });
+
+                requestAnimationFrame(() => this.animate());
+            }
+        }
+
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            new FloatingShapes();
+
+            // Theme switching functionality
+            const themeToggle = document.getElementById('themeToggle');
+            const themeIcon = document.getElementById('themeIcon');
+            const body = document.body;
+
+            // Check for saved theme or prefer color scheme
+            const savedTheme = localStorage.getItem('theme') ||
+                              (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+
+            setTheme(savedTheme);
+
+            themeToggle.addEventListener('click', function() {
+                const currentTheme = body.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                setTheme(newTheme);
+                localStorage.setItem('theme', newTheme);
+            });
+
+            function setTheme(theme) {
+                body.setAttribute('data-theme', theme);
+                if (theme === 'dark') {
+                    themeIcon.className = 'bi bi-moon-fill';
+                    themeToggle.title = 'Switch to light mode';
+                } else {
+                    themeIcon.className = 'bi bi-sun-fill';
+                    themeToggle.title = 'Switch to dark mode';
+                }
+            }
+
+            // Scroll to top function
+            window.scrollToTop = function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            };
+
+            // Show scroll progress
+            window.addEventListener('scroll', function() {
+                const fab = document.querySelector('.fab');
+                if (window.scrollY > 300) {
+                    fab.style.opacity = '1';
+                    fab.style.transform = 'scale(1)';
+                } else {
+                    fab.style.opacity = '0';
+                    fab.style.transform = 'scale(0)';
+                }
+            });
+
+            // Fix table action buttons layout
+            function fixActionButtons() {
+                document.querySelectorAll('.table td:last-child').forEach(cell => {
+                    if (!cell.querySelector('.action-buttons')) {
+                        const buttons = cell.querySelectorAll('.btn');
+                        if (buttons.length > 0) {
+                            const actionContainer = document.createElement('div');
+                            actionContainer.className = 'action-buttons';
+                            buttons.forEach(btn => actionContainer.appendChild(btn));
+                            cell.innerHTML = '';
+                            cell.appendChild(actionContainer);
+                        }
+                    }
+                });
+            }
+
+            // Run initially and after any DOM changes
+            fixActionButtons();
+
+            // Observe for dynamic content changes
+            const observer = new MutationObserver(fixActionButtons);
+            observer.observe(document.body, { childList: true, subtree: true });
+        });
+    </script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
