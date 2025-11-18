@@ -1,5 +1,4 @@
-﻿// In Controllers/HRController.cs
-using CMCS.Data;
+﻿using CMCS.Data;
 using CMCS.Models;
 using CMCS.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -9,7 +8,7 @@ using System.Text;
 
 namespace CMCS.Controllers
 {
-    [Authorize(Roles = "Administrator")] // HR functionality for admins
+    [Authorize(Roles = "Administrator")] 
     public class HRController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -22,7 +21,7 @@ namespace CMCS.Controllers
         }
 
 
-        // AUTOMATED REPORT GENERATION - POE REQUIREMENT
+        // AUTOMATED REPORT GENERATION 
         public async Task<IActionResult> GeneratePaymentReport(string period)
         {
             var approvedClaims = await _context.Claims
@@ -33,7 +32,7 @@ namespace CMCS.Controllers
                 .ThenBy(c => c.User.FirstName)
                 .ToListAsync();
 
-            // Generate CSV report - POE REQUIREMENT
+            // Generate CSV report 
             var csv = new StringBuilder();
             csv.AppendLine("Lecturer Name,Email,Period,Workload Hours,Hourly Rate,Total Amount,Approval Date");
 
@@ -67,7 +66,7 @@ namespace CMCS.Controllers
             return File(pdfBytes, "application/pdf", $"PaymentReport_{period ?? "All"}_{DateTime.Now:yyyyMMdd}.pdf");
         }
 
-        // LECTURER DATA MANAGEMENT - POE REQUIREMENT
+        // LECTURER DATA MANAGEMENT 
         public async Task<IActionResult> ManageLecturers()
         {
             var lecturers = await _context.Users
@@ -80,7 +79,7 @@ namespace CMCS.Controllers
                     FirstName = u.FirstName,
                     LastName = u.LastName,
                     Email = u.Email,
-                    HourlyRate = u.HourlyRate, // ADD THIS
+                    HourlyRate = u.HourlyRate, 
                     DateRegistered = u.DateRegistered,
                     TotalClaims = u.Claims.Count,
                     ApprovedClaims = u.Claims.Count(c => c.Status == ClaimStatus.Approved),
@@ -91,7 +90,7 @@ namespace CMCS.Controllers
             return View(lecturers);
         }
 
-        // UPDATE LECTURER INFORMATION - POE REQUIREMENT
+        // UPDATE LECTURER INFORMATION 
         [HttpPost]
         public async Task<IActionResult> UpdateLecturerInfo(string id, string firstName, string lastName, string email, decimal hourlyRate)
         {
@@ -105,7 +104,7 @@ namespace CMCS.Controllers
             lecturer.LastName = lastName;
             lecturer.Email = email;
             lecturer.UserName = email;
-            lecturer.HourlyRate = hourlyRate; // ADD THIS
+            lecturer.HourlyRate = hourlyRate; 
 
             await _context.SaveChangesAsync();
 
@@ -114,14 +113,14 @@ namespace CMCS.Controllers
         }
     }
 
-    // VIEW MODEL FOR HR - POE REQUIREMENT
+    // VIEW MODEL FOR HR 
     public class LecturerViewModel
     {
         public string Id { get; set; } = string.Empty;
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
-        public decimal HourlyRate { get; set; } // ADD THIS
+        public decimal HourlyRate { get; set; } 
         public DateTime DateRegistered { get; set; }
         public int TotalClaims { get; set; }
         public int ApprovedClaims { get; set; }

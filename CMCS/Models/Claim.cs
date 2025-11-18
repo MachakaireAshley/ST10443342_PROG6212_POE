@@ -78,7 +78,6 @@ namespace CMCS.Models
         [Display(Name = "Processed Date")]
         public DateTime? ProcessedDate { get; set; }
 
-        // Navigation properties
         public virtual ICollection<Document> Documents { get; set; } = new List<Document>();
 
         [NotMapped]

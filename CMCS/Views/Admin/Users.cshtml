@@ -63,9 +63,9 @@
                                 <td>@user.Email</td>
                                 <td>
                                     <span class="badge
-                                                                        @(user.Role == CMCS.Models.UserRole.AcademicManager ? "bg-danger" :
-                                                                                                                                                                                user.Role == CMCS.Models.UserRole.ProgramCoordinator ? "bg-warning" :
-                                                                                                                                                                                "bg-info")">
+                                     @(user.Role == CMCS.Models.UserRole.AcademicManager ? "bg-danger" :
+                                       user.Role == CMCS.Models.UserRole.ProgramCoordinator ? "bg-warning" :
+                                        "bg-info")">
                                 @user.Role
                             </span>
                         </td>

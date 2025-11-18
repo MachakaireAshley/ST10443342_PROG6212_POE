@@ -85,7 +85,6 @@
                         </div>
                     </div>
 
-                    <!-- SUBMIT BUTTON - This was missing -->
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary btn-lg">
                             <i class="bi bi-check-circle"></i> Submit Claim
@@ -147,7 +146,7 @@
     }
 
     <script>
-        // AUTO-CALCULATION FEATURE - POE REQUIREMENT
+        // AUTO-CALCULATION FEATURE 
         document.addEventListener('DOMContentLoaded', function() {
             const workloadInput = document.getElementById('Workload');
             const hourlyRateInput = document.getElementById('HourlyRate');
@@ -167,7 +166,7 @@
             workloadInput.addEventListener('input', calculateTotal);
             hourlyRateInput.addEventListener('input', calculateTotal);
 
-            // VALIDATION CHECKS - POE REQUIREMENT
+            // VALIDATION CHECKS 
             workloadInput.addEventListener('blur', function() {
                 const workload = parseFloat(this.value) || 0;
                 if (workload < 0.1) {
@@ -183,10 +182,10 @@
             calculateTotal();
         });
 
-        // FILE VALIDATION - POE REQUIREMENT
+        // FILE VALIDATION 
         document.getElementById('Documents').addEventListener('change', function() {
             const files = this.files;
-            const maxSize = 5 * 1024 * 1024; // 5MB
+            const maxSize = 5 * 1024 * 1024;
             const allowedTypes = ['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
                                  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'image/jpeg', 'image/png'];
 

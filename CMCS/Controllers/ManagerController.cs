@@ -87,7 +87,6 @@ namespace CMCS.Controllers
 
             await _db.SaveChangesAsync();
 
-            // ADD NOTIFICATION HERE
             await CreateClaimNotification(claim, "approved");
 
             TempData["SuccessMessage"] = $"Claim #{claim.ClaimId} has been finally approved and settled!";
@@ -131,7 +130,6 @@ namespace CMCS.Controllers
 
             await _db.SaveChangesAsync();
 
-            // ADD NOTIFICATION HERE
             await CreateClaimNotification(claim, "rejected");
 
             TempData["SuccessMessage"] = $"Claim #{claim.ClaimId} has been rejected.";
@@ -182,7 +180,7 @@ namespace CMCS.Controllers
                 result.IsValid = false;
                 result.ErrorMessage = "Claim must be coordinator-approved or pending for final approval";
             }
-            else if (claim.Amount > 10000) // Large amount requires additional review
+            else if (claim.Amount > 10000) 
             {
                 result.IsValid = false;
                 result.ErrorMessage = "Claims over R10,000 require additional review";

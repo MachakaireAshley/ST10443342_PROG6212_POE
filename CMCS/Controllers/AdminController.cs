@@ -45,7 +45,7 @@ namespace CMCS.Controllers
                     FirstName = user.FirstName,
                     LastName = user.LastName,
                     Role = user.Role,
-                    HourlyRate = user.HourlyRate, // ADD THIS
+                    HourlyRate = user.HourlyRate,
                     DateRegistered = user.DateRegistered,
                     AspNetRoles = roles.ToList()
                 });
@@ -82,7 +82,7 @@ namespace CMCS.Controllers
                     FirstName = model.FirstName,
                     LastName = model.LastName,
                     Role = model.Role,
-                    HourlyRate = model.HourlyRate, // ADD THIS - POE REQUIREMENT
+                    HourlyRate = model.HourlyRate, 
                     DateRegistered = DateTime.Now,
                     EmailConfirmed = true
                 };
@@ -105,7 +105,7 @@ namespace CMCS.Controllers
                     // Create notification for admin
                     await CreateNotification($"New user {user.FullName} created successfully with hourly rate R{user.HourlyRate:N2}", "System", true);
 
-                    // Store in session - POE REQUIREMENT
+                    // Store in session 
                     HttpContext.Session.SetString("LastCreatedUser", user.Email);
 
                     TempData["SuccessMessage"] = $"User {user.Email} created successfully with hourly rate R{user.HourlyRate:N2}!";
@@ -168,7 +168,7 @@ namespace CMCS.Controllers
                 user.FirstName = model.FirstName;
                 user.LastName = model.LastName;
                 user.Role = model.Role;
-                user.HourlyRate = model.HourlyRate; // ADD THIS
+                user.HourlyRate = model.HourlyRate; 
 
                 var result = await _userManager.UpdateAsync(user);
 
@@ -254,7 +254,7 @@ namespace CMCS.Controllers
         // GET: Admin/SystemStats
         public async Task<IActionResult> SystemStats()
         {
-            // Use session for stats - POE REQUIREMENT
+            // Use session for stats 
             var statsKey = "SystemStats";
             SystemStatsViewModel stats = HttpContext.Session.Get<SystemStatsViewModel>(statsKey);
 
@@ -303,7 +303,7 @@ namespace CMCS.Controllers
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
         public UserRole Role { get; set; }
-        public decimal HourlyRate { get; set; } // ADD THIS
+        public decimal HourlyRate { get; set; } 
         public DateTime DateRegistered { get; set; }
         public List<string> AspNetRoles { get; set; } = new List<string>();
     }
@@ -387,7 +387,7 @@ namespace CMCS.Controllers
     }
 }
 
-// Session extension methods for POE requirement
+// Session extension methods 
 public static class SessionExtensions
 {
     public static void Set<T>(this ISession session, string key, T value)

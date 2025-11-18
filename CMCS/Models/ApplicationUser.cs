@@ -34,11 +34,10 @@ namespace CMCS.Models
         // Navigation property for claims
         public virtual ICollection<Claim> Claims { get; set; } = new List<Claim>();
 
-        // Helper method to check if user can be managed
         public bool CanBeManagedBy(ApplicationUser manager)
         {
             return manager.Role == UserRole.AcademicManager &&
-                   this.Role != UserRole.AcademicManager; // Admins can't manage other admins
+                   this.Role != UserRole.AcademicManager;
         }
     }
 }

@@ -182,10 +182,10 @@ namespace CMCS.Controllers
                 result.IsValid = false;
                 result.ErrorMessage = "Workload must be greater than 0";
             }
-            else if (claim.Workload > 160) // Maximum 160 hours per month
+            else if (claim.Workload > 180) 
             {
                 result.IsValid = false;
-                result.ErrorMessage = "Workload exceeds maximum allowed hours (160)";
+                result.ErrorMessage = "Workload exceeds maximum allowed hours (180)";
             }
             else if (claim.HourlyRate <= 0 || claim.HourlyRate > 500) // Rate validation
             {
@@ -206,7 +206,7 @@ namespace CMCS.Controllers
             return result;
         }
 
-        // ADD THIS HELPER CLASS - POE REQUIREMENT
+        // ADD THIS HELPER CLASS 
         public class VerificationResult
         {
             public bool IsValid { get; set; }

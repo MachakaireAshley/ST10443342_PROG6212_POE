@@ -90,7 +90,7 @@ namespace CMCS.Controllers
                 }
             }
 
-            // FIXED: Combine Pending and CoordinatorApproved into single Pending count
+            // Combine Pending and CoordinatorApproved into single Pending count
             var dashboard = new DashboardViewModel
             {
                 // Combine both pending statuses into single Pending count
@@ -114,7 +114,7 @@ namespace CMCS.Controllers
             var currentUser = await _userManager.GetUserAsync(User);
             if (currentUser == null) return Challenge();
 
-            // Store user info in session - POE REQUIREMENT
+            // Store user info in session
             HttpContext.Session.SetString("CurrentUserName", currentUser.FullName);
             HttpContext.Session.SetString("CurrentUserRole", currentUser.Role.ToString());
             HttpContext.Session.SetString("CurrentUserHourlyRate", currentUser.HourlyRate.ToString());
@@ -131,13 +131,13 @@ namespace CMCS.Controllers
             var currentUser = await _userManager.GetUserAsync(User);
             if (currentUser == null) return Challenge();
 
-            // POE REQUIREMENT: Pull hourly rate from HR data (User record)
+            // Pull hourly rate from HR data (User record)
             var model = new ClaimSubmissionViewModel
             {
                 HourlyRate = currentUser.HourlyRate // This is set by HR
             };
 
-            // Store claim session data - POE REQUIREMENT
+            // Store claim session data 
             HttpContext.Session.SetString("CurrentHourlyRate", currentUser.HourlyRate.ToString());
 
             return View(model);
@@ -154,7 +154,7 @@ namespace CMCS.Controllers
                     var currentUser = await _userManager.GetUserAsync(User);
                     if (currentUser == null) return Challenge();
 
-                    // POE REQUIREMENT: Validation - cannot exceed 180 hours per month
+                    // Validation - cannot exceed 180 hours per month
                     if (model.Workload > 180)
                     {
                         ModelState.AddModelError("Workload", "Workload cannot exceed 180 hours per month.");
@@ -171,7 +171,7 @@ namespace CMCS.Controllers
                         return View(model);
                     }
 
-                    // POE REQUIREMENT: Use hourly rate from HR data (User record), not from form
+                    // Use hourly rate from HR data (User record), not from form
                     var hourlyRateFromHR = currentUser.HourlyRate;
                     var calculatedAmount = model.Workload * hourlyRateFromHR;
 
@@ -180,7 +180,7 @@ namespace CMCS.Controllers
                         UserId = currentUser.Id,
                         Period = model.Period,
                         Workload = model.Workload,
-                        HourlyRate = hourlyRateFromHR, // Use HR-set rate
+                        HourlyRate = hourlyRateFromHR, 
                         Description = model.Description,
                         Amount = calculatedAmount,
                         SubmitDate = DateTime.Now,
@@ -205,7 +205,7 @@ namespace CMCS.Controllers
                         }
                     }
 
-                    // Store claim in session for tracking - POE REQUIREMENT
+                    // Store claim in session for tracking
                     HttpContext.Session.SetString($"LastClaim_{currentUser.Id}", $"{claim.ClaimId}_{claim.Period}");
 
                     // ADD NOTIFICATION FOR CLAIM SUBMISSION

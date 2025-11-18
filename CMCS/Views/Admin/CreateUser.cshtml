@@ -55,7 +55,7 @@
                 <span asp-validation-for="Role" class="text-danger"></span>
             </div>
 
-            <!-- POE REQUIREMENT: Hourly Rate for Lecturers -->
+            <!-- Hourly Rate for Lecturers -->
             <div class="form-group mb-3" id="hourlyRateGroup">
                 <label asp-for="HourlyRate" class="form-label"></label>
                 <div class="input-group">
@@ -128,7 +128,7 @@
 
             function toggleHourlyRate() {
                 const selectedRole = roleSelect.value;
-                // Show hourly rate only for Lecturers (POE requirement)
+                // Show hourly rate only for Lecturers 
                 if (selectedRole === 'Lecturer') {
                     hourlyRateGroup.style.display = 'block';
                 } else {

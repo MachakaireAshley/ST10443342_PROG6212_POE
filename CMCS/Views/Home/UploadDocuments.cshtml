@@ -143,12 +143,12 @@
         // File size validation
         document.getElementById('Files').addEventListener('change', function() {
             const files = this.files;
-            const maxSize = 5 * 1024 * 1024; // 5MB in bytes
+            const maxSize = 5 * 1024 * 1024;
 
             for (let i = 0; i < files.length; i++) {
                 if (files[i].size > maxSize) {
                     alert(`File "${files[i].name}" exceeds the 5MB size limit.`);
-                    this.value = ''; // Clear the file input
+                    this.value = ''; 
                     break;
                 }
             }

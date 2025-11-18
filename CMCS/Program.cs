@@ -13,7 +13,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 
-// Add session services - POE REQUIREMENT
+// Add session services 
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
@@ -68,7 +68,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-// Add session middleware - POE REQUIREMENT
+// Add session middleware
 app.UseSession();
 
 app.UseAuthentication();
@@ -102,7 +102,6 @@ using (var scope = app.Services.CreateScope())
         logger.LogError(ex, "An error occurred while seeding the database.");
         Console.WriteLine($"Seeding error: {ex.Message}");
 
-        // If there's still a pending changes error, use EnsureCreated instead
         if (ex.Message.Contains("pending changes"))
         {
             Console.WriteLine("Using EnsureCreated as fallback...");
