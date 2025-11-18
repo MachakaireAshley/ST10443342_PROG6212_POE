@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "Reject Claim";
+    var claimId = ViewBag.ClaimId;
+}
+
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <div class="card bg-dark text-light mb-5">
+            <div class="card-header bg-secondary">
+                <h5 class="mb-0 text-light">Reject Claim #CL-@claimId.ToString("D4")</h5>
+            </div>
+            <div class="card-body">
+                <form asp-action="Reject" method="post">
+                    <input type="hidden" name="id" value="@claimId" />
+                    <div class="mb-3">
+                        <label for="rejectionReason" class="form-label text-light">Rejection Reason</label>
+                        <textarea class="form-control bg-dark text-light" id="rejectionReason" name="rejectionReason" rows="4" required
+                                  style="border: 1px solid #444;"></textarea>
+                        <span class="text-danger"></span>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-danger">Reject Claim</button>
+                        <a href="@Url.Action("Index", "Claims")" class="btn btn-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

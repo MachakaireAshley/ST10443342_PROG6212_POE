@@ -1,0 +1,333 @@
+﻿@model CMCS.Models.Claim
+@{
+    ViewData["Title"] = "Claim Details";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h1 class="text-light">Claim Details</h1>
+        <p class="text-muted">Claim #CL-@Model.ClaimId.ToString("D4")</p>
+    </div>
+</div>
+
+<div class="row mt-4 mb-5">
+    <div class="col-md-8">
+        <div class="card bg-dark text-light">
+            <div class="card-header bg-secondary">
+                <h5 class="mb-0 text-light">Claim Information</h5>
+            </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <strong class="text-light">Claim ID:</strong> CL-@Model.ClaimId.ToString("D4")
+                    </div>
+                    <div class="col-md-6">
+                        <strong class="text-light">Status:</strong>
+                        <span class="badge @GetStatusBadgeClass(Model.Status)">
+                            @GetDetailedStatusDisplay(Model.Status)
+                        </span>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <strong class="text-light">Lecturer:</strong> @Model.User?.FirstName @Model.User?.LastName
+                    </div>
+                    <div class="col-md-6">
+                        <strong class="text-light">Submission Date:</strong> @Model.SubmitDate.ToString("yyyy-MM-dd")
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <strong class="text-light">Claim Period:</strong> @Model.Period
+                    </div>
+                    <div class="col-md-6">
+                        <strong class="text-light">Workload Hours:</strong> @Model.Workload
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <strong class="text-light">Hourly Rate:</strong> @Model.HourlyRate.ToString("C")
+                    </div>
+                    <div class="col-md-6">
+                        <strong class="text-light">Total Amount:</strong> @Model.Amount.ToString("C")
+                    </div>
+                </div>
+
+                @if (!string.IsNullOrEmpty(Model.Description))
+                {
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <strong class="text-light">Description:</strong>
+                            <p class="mt-1 text-light">@Model.Description</p>
+                        </div>
+                    </div>
+                }
+
+                @if (Model.ProcessedByUser != null)
+                {
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <strong class="text-light">Processed By:</strong> @Model.ProcessedByUser.FirstName @Model.ProcessedByUser.LastName
+                        </div>
+                        <div class="col-md-6">
+                            <strong class="text-light">Processed Date:</strong> @Model.ProcessedDate?.ToString("yyyy-MM-dd")
+                        </div>
+                    </div>
+                }
+
+                @if (Model.Status == ClaimStatus.Rejected && !string.IsNullOrEmpty(Model.RejectionReason))
+                {
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <strong class="text-light">Rejection Reason:</strong>
+                            <p class="mt-1 text-danger">@Model.RejectionReason</p>
+                        </div>
+                    </div>
+                }
+
+                @if (Model.Status == ClaimStatus.Approved && Model.ApprovalDate.HasValue)
+                {
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <strong class="text-light">Approval Date:</strong> @Model.ApprovalDate.Value.ToString("yyyy-MM-dd")
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- Documents Section -->
+        <div class="card bg-dark text-light mt-4">
+            <div class="card-header bg-secondary">
+                <h5 class="mb-0 text-light">Supporting Documents</h5>
+            </div>
+            <div class="card-body">
+                @if (Model.Documents?.Any() == true)
+                {
+                    <div class="list-group">
+                        @foreach (var document in Model.Documents)
+                        {
+                            <div class="list-group-item bg-dark text-light border-secondary d-flex justify-content-between align-items-center">
+                                <div>
+                                    <strong>@document.FileName</strong>
+                                    <br>
+                                    <small class="text-muted">
+                                        Uploaded: @document.UploadDate.ToString("yyyy-MM-dd") |
+                                        Size: @((document.FileSize / 1024f) / 1024f).ToString("0.00") MB
+                                    </small>
+                                </div>
+                                <a href="/uploads/@document.FilePath" target="_blank" class="btn btn-info btn-sm">
+                                    <i class="bi bi-download"></i> Download
+                                </a>
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <p class="text-muted">No supporting documents uploaded for this claim.</p>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card bg-dark text-light">
+            <div class="card-header bg-secondary">
+                <h5 class="mb-0 text-light">Quick Actions</h5>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <a href="@Url.Action("Index", "Claims")" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-left"></i> Back to All Claims
+                    </a>
+                    <a href="@Url.Action("Index", "Home")" class="btn btn-outline-secondary">
+                        <i class="bi bi-house"></i> Dashboard
+                    </a>
+
+                    @if ((Model.Status == ClaimStatus.Pending || Model.Status == ClaimStatus.CoordinatorApproved) && (User.IsInRole("Coordinator") || User.IsInRole("Administrator")))
+                    {
+                        <form asp-action="Approve" method="post" class="d-grid">
+                            <input type="hidden" name="id" value="@Model.ClaimId" />
+                            <button type="submit" class="btn btn-success">
+                                @if (Model.Status == ClaimStatus.CoordinatorApproved)
+                                {
+                                    @:Re-approve
+                                }
+                                else
+                                {
+                                    @:Approve
+                                }
+                            </button>
+                        </form>
+
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rejectModal">
+                            Reject Claim
+                        </button>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Status Timeline -->
+        <div class="card bg-dark text-light mt-4">
+            <div class="card-header bg-secondary">
+                <h5 class="mb-0 text-light">Claim Status Timeline</h5>
+            </div>
+            <div class="card-body">
+                <div class="timeline">
+                    <div class="timeline-item @(Model.Status != ClaimStatus.Pending ? "completed" : "active")">
+                        <div class="timeline-content">
+                            <strong class="text-light">Submitted</strong>
+                            <small class="text-muted d-block">@Model.SubmitDate.ToString("yyyy-MM-dd HH:mm")</small>
+                        </div>
+                    </div>
+
+                    @if (Model.Status == ClaimStatus.CoordinatorApproved)
+                    {
+                        <div class="timeline-item completed">
+                            <div class="timeline-content">
+                                <strong class="text-light">Coordinator Approved</strong>
+                                <small class="text-muted d-block">@Model.ProcessedDate?.ToString("yyyy-MM-dd HH:mm")</small>
+                                @if (Model.ProcessedByUser != null)
+                                {
+                                    <small class="text-muted">By: @Model.ProcessedByUser.FirstName @Model.ProcessedByUser.LastName</small>
+                                }
+                            </div>
+                        </div>
+                        <div class="timeline-item active">
+                            <div class="timeline-content">
+                                <strong class="text-light">Waiting for Manager</strong>
+                                <small class="text-muted">Pending final approval</small>
+                            </div>
+                        </div>
+                    }
+                    else if (Model.Status == ClaimStatus.Approved || Model.Status == ClaimStatus.Rejected)
+                    {
+                        <div class="timeline-item completed">
+                            <div class="timeline-content">
+                                <strong class="text-light">@GetDetailedStatusDisplay(Model.Status)</strong>
+                                <small class="text-muted d-block">@Model.ProcessedDate?.ToString("yyyy-MM-dd HH:mm")</small>
+                                @if (Model.ProcessedByUser != null)
+                                {
+                                    <small class="text-muted">By: @Model.ProcessedByUser.FirstName @Model.ProcessedByUser.LastName</small>
+                                }
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <strong class="text-light">Under Review</strong>
+                                <small class="text-muted">Pending coordinator approval</small>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Reject Modal -->
+@if ((Model.Status == ClaimStatus.Pending || Model.Status == ClaimStatus.CoordinatorApproved) && (User.IsInRole("Coordinator") || User.IsInRole("Administrator")))
+{
+    <div class="modal fade" id="rejectModal" tabindex="-1" aria-labelledby="rejectModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-dark text-light">
+                <div class="modal-header bg-secondary">
+                    <h5 class="modal-title text-light" id="rejectModalLabel">Reject Claim</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form asp-action="Reject" method="post">
+                    <div class="modal-body">
+                        <input type="hidden" name="id" value="@Model.ClaimId" />
+                        <div class="mb-3">
+                            <label for="rejectionReason" class="form-label text-light">Rejection Reason</label>
+                            <textarea class="form-control bg-dark text-light" id="rejectionReason" name="rejectionReason" rows="3" required
+                                  style="border: 1px solid #444;"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-danger">Reject Claim</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+}
+
+@functions {
+    public string GetStatusBadgeClass(ClaimStatus status)
+    {
+        return status switch
+        {
+            ClaimStatus.Pending => "bg-warning",
+            ClaimStatus.Approved => "bg-success",
+            ClaimStatus.Rejected => "bg-danger",
+            ClaimStatus.CoordinatorApproved => "bg-info",
+            _ => "bg-secondary"
+        };
+    }
+
+    public string GetDetailedStatusDisplay(ClaimStatus status)
+    {
+        return status switch
+        {
+            ClaimStatus.Pending => "Pending - Waiting for Coordinator",
+            ClaimStatus.Approved => "Approved",
+            ClaimStatus.Rejected => "Rejected",
+            ClaimStatus.CoordinatorApproved => "Pending - Waiting for Manager",
+            _ => status.ToString()
+        };
+    }
+}
+
+<style>
+    .timeline {
+        position: relative;
+        padding-left: 20px;
+    }
+
+    .timeline-item {
+        position: relative;
+        margin-bottom: 20px;
+        padding-left: 20px;
+    }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #666;
+            border: 2px solid #444;
+        }
+
+        .timeline-item.completed::before {
+            background: #10b981;
+            border-color: #0d9c6d;
+        }
+
+        .timeline-item.active::before {
+            background: #3b82f6;
+            border-color: #2563eb;
+            animation: pulse 2s infinite;
+        }
+
+    .timeline-content {
+        background: #1a1a1a;
+        padding: 15px;
+        border-radius: 8px;
+        border: 1px solid #333;
+    }
+
+</style>

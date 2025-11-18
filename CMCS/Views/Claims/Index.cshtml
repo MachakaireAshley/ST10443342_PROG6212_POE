@@ -1,0 +1,115 @@
+﻿@model IEnumerable<CMCS.Models.Claim>
+@{
+    ViewData["Title"] = "All Claims";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h1 class="text-light">All Claims</h1>
+        <p class="text-muted">Comprehensive view of all claims in the system</p>
+    </div>
+</div>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<div class="card bg-dark text-light mt-4 mb-5">
+    <div class="card-header bg-secondary">
+        <div class="d-flex justify-content-between align-items-center">
+            <span class="text-light">Claims Overview</span>
+            <div class="btn-group" role="group">
+                <a href="@Url.Action("Index", "Home")" class="btn btn-outline-secondary btn-sm">Back to Dashboard</a>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        @if (!Model.Any())
+        {
+            <div class="alert alert-info">No claims found in the system.</div>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table table-dark table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th class="text-light">Claim ID</th>
+                            <th class="text-light">Lecturer</th>
+                            <th class="text-light">Period</th>
+                            <th class="text-light">Workload</th>
+                            <th class="text-light">Amount</th>
+                            <th class="text-light">Submitted</th>
+                            <th class="text-light">Status</th>
+                            <th class="text-light">Processed By</th>
+                            <th class="text-light">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var claim in Model)
+                        {
+                            <tr>
+                                <td class="text-light">CL-@claim.ClaimId.ToString("D4")</td>
+                                <td class="text-light">@claim.User?.FirstName @claim.User?.LastName</td>
+                                <td class="text-light">@claim.Period</td>
+                                <td class="text-light">@claim.Workload hours</td>
+                                <td class="text-light">@claim.Amount.ToString("C")</td>
+                                <td class="text-light">@claim.SubmitDate.ToString("yyyy-MM-dd")</td>
+                                <td>
+                                    <span class="badge @GetStatusBadgeClass(claim.Status)">
+                                        @GetDetailedStatusDisplay(claim.Status)
+                                    </span>
+                                </td>
+                                <td class="text-light">
+                                    @if (claim.ProcessedByUser != null)
+                                    {
+                                        @claim.ProcessedByUser.FirstName @claim.ProcessedByUser.LastName
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">-</span>
+                                    }
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Details", "Claims", new { id = claim.ClaimId })" class="btn btn-info btn-sm">
+                                        <i class="bi bi-eye"></i> View Details
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>
+
+@functions {
+    public string GetStatusBadgeClass(ClaimStatus status)
+    {
+        return status switch
+        {
+            ClaimStatus.Pending => "bg-warning",
+            ClaimStatus.Approved => "bg-success",
+            ClaimStatus.Rejected => "bg-danger",
+            ClaimStatus.CoordinatorApproved => "bg-info",
+            _ => "bg-secondary"
+        };
+    }
+
+    public string GetDetailedStatusDisplay(ClaimStatus status)
+    {
+        return status switch
+        {
+            ClaimStatus.Pending => "Pending - Waiting for Coordinator",
+            ClaimStatus.Approved => "Approved",
+            ClaimStatus.Rejected => "Rejected",
+            ClaimStatus.CoordinatorApproved => "Pending - Waiting for Manager",
+            _ => status.ToString()
+        };
+    }
+}

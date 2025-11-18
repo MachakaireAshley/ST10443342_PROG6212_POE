@@ -3,36 +3,32 @@
   "WorkspaceRootPath": "C:\\Users\\lab_services_student\\Documents\\GitHub\\ST10443342_PROG6212_POE\\CMCS\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{1A8FB245-4286-4F34-8490-38B362AD0A3D}|CMCS.csproj|c:\\users\\lab_services_student\\documents\\github\\st10443342_prog6212_poe\\cmcs\\views\\coordinator\\dashboard.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{1A8FB245-4286-4F34-8490-38B362AD0A3D}|CMCS.csproj|solutionrelative:views\\coordinator\\dashboard.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{1A8FB245-4286-4F34-8490-38B362AD0A3D}|CMCS.csproj|c:\\users\\lab_services_student\\documents\\github\\st10443342_prog6212_poe\\cmcs\\views\\admin\\users.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1A8FB245-4286-4F34-8490-38B362AD0A3D}|CMCS.csproj|solutionrelative:views\\admin\\users.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1A8FB245-4286-4F34-8490-38B362AD0A3D}|CMCS.csproj|c:\\users\\lab_services_student\\documents\\github\\st10443342_prog6212_poe\\cmcs\\views\\hr\\managelecturers.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{1A8FB245-4286-4F34-8490-38B362AD0A3D}|CMCS.csproj|solutionrelative:views\\hr\\managelecturers.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{1A8FB245-4286-4F34-8490-38B362AD0A3D}|CMCS.csproj|c:\\users\\lab_services_student\\documents\\github\\st10443342_prog6212_poe\\cmcs\\views\\admin\\systemstats.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1A8FB245-4286-4F34-8490-38B362AD0A3D}|CMCS.csproj|solutionrelative:views\\admin\\systemstats.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1A8FB245-4286-4F34-8490-38B362AD0A3D}|CMCS.csproj|c:\\users\\lab_services_student\\documents\\github\\st10443342_prog6212_poe\\cmcs\\views\\manager\\dashboard.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{1A8FB245-4286-4F34-8490-38B362AD0A3D}|CMCS.csproj|solutionrelative:views\\manager\\dashboard.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{1A8FB245-4286-4F34-8490-38B362AD0A3D}|CMCS.csproj|c:\\users\\lab_services_student\\documents\\github\\st10443342_prog6212_poe\\cmcs\\views\\admin\\edituser.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1A8FB245-4286-4F34-8490-38B362AD0A3D}|CMCS.csproj|solutionrelative:views\\admin\\edituser.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1A8FB245-4286-4F34-8490-38B362AD0A3D}|CMCS.csproj|c:\\users\\lab_services_student\\documents\\github\\st10443342_prog6212_poe\\cmcs\\views\\home\\viewhistory.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{1A8FB245-4286-4F34-8490-38B362AD0A3D}|CMCS.csproj|solutionrelative:views\\home\\viewhistory.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{1A8FB245-4286-4F34-8490-38B362AD0A3D}|CMCS.csproj|c:\\users\\lab_services_student\\documents\\github\\st10443342_prog6212_poe\\cmcs\\views\\admin\\createuser.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1A8FB245-4286-4F34-8490-38B362AD0A3D}|CMCS.csproj|solutionrelative:views\\admin\\createuser.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1A8FB245-4286-4F34-8490-38B362AD0A3D}|CMCS.csproj|c:\\users\\lab_services_student\\documents\\github\\st10443342_prog6212_poe\\cmcs\\views\\home\\uploaddocuments.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{1A8FB245-4286-4F34-8490-38B362AD0A3D}|CMCS.csproj|solutionrelative:views\\home\\uploaddocuments.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{1A8FB245-4286-4F34-8490-38B362AD0A3D}|CMCS.csproj|c:\\users\\lab_services_student\\documents\\github\\st10443342_prog6212_poe\\cmcs\\views\\claims\\reject.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1A8FB245-4286-4F34-8490-38B362AD0A3D}|CMCS.csproj|solutionrelative:views\\claims\\reject.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1A8FB245-4286-4F34-8490-38B362AD0A3D}|CMCS.csproj|c:\\users\\lab_services_student\\documents\\github\\st10443342_prog6212_poe\\cmcs\\views\\home\\submitclaim.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{1A8FB245-4286-4F34-8490-38B362AD0A3D}|CMCS.csproj|solutionrelative:views\\home\\submitclaim.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{1A8FB245-4286-4F34-8490-38B362AD0A3D}|CMCS.csproj|c:\\users\\lab_services_student\\documents\\github\\st10443342_prog6212_poe\\cmcs\\views\\claims\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1A8FB245-4286-4F34-8490-38B362AD0A3D}|CMCS.csproj|solutionrelative:views\\claims\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1A8FB245-4286-4F34-8490-38B362AD0A3D}|CMCS.csproj|c:\\users\\lab_services_student\\documents\\github\\st10443342_prog6212_poe\\cmcs\\views\\home\\generatereport.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{1A8FB245-4286-4F34-8490-38B362AD0A3D}|CMCS.csproj|solutionrelative:views\\home\\generatereport.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1A8FB245-4286-4F34-8490-38B362AD0A3D}|CMCS.csproj|c:\\users\\lab_services_student\\documents\\github\\st10443342_prog6212_poe\\cmcs\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{1A8FB245-4286-4F34-8490-38B362AD0A3D}|CMCS.csproj|solutionrelative:views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{1A8FB245-4286-4F34-8490-38B362AD0A3D}|CMCS.csproj|c:\\users\\lab_services_student\\documents\\github\\st10443342_prog6212_poe\\cmcs\\views\\claims\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1A8FB245-4286-4F34-8490-38B362AD0A3D}|CMCS.csproj|solutionrelative:views\\claims\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -55,105 +51,92 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Dashboard.cshtml",
-              "DocumentMoniker": "C:\\Users\\lab_services_student\\Documents\\GitHub\\ST10443342_PROG6212_POE\\CMCS\\Views\\Coordinator\\Dashboard.cshtml",
-              "RelativeDocumentMoniker": "Views\\Coordinator\\Dashboard.cshtml",
-              "ToolTip": "C:\\Users\\lab_services_student\\Documents\\GitHub\\ST10443342_PROG6212_POE\\CMCS\\Views\\Coordinator\\Dashboard.cshtml",
-              "RelativeToolTip": "Views\\Coordinator\\Dashboard.cshtml",
-              "ViewState": "AgIAALMAAAAAAAAAAAAswNIAAAABAAAAAAAAAA==",
+              "Title": "Users.cshtml",
+              "DocumentMoniker": "C:\\Users\\lab_services_student\\Documents\\GitHub\\ST10443342_PROG6212_POE\\CMCS\\Views\\Admin\\Users.cshtml",
+              "RelativeDocumentMoniker": "Views\\Admin\\Users.cshtml",
+              "ToolTip": "C:\\Users\\lab_services_student\\Documents\\GitHub\\ST10443342_PROG6212_POE\\CMCS\\Views\\Admin\\Users.cshtml",
+              "RelativeToolTip": "Views\\Admin\\Users.cshtml",
+              "ViewState": "AgIAAGEAAAAAAAAAAAAgwIIAAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-17T23:59:50.05Z",
+              "WhenOpened": "2025-11-18T00:07:09.929Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "ManageLecturers.cshtml",
-              "DocumentMoniker": "C:\\Users\\lab_services_student\\Documents\\GitHub\\ST10443342_PROG6212_POE\\CMCS\\Views\\HR\\ManageLecturers.cshtml",
-              "RelativeDocumentMoniker": "Views\\HR\\ManageLecturers.cshtml",
-              "ToolTip": "C:\\Users\\lab_services_student\\Documents\\GitHub\\ST10443342_PROG6212_POE\\CMCS\\Views\\HR\\ManageLecturers.cshtml",
-              "RelativeToolTip": "Views\\HR\\ManageLecturers.cshtml",
-              "ViewState": "AgIAAHcAAAAAAAAAAAAswJYAAAABAAAAAAAAAA==",
+              "Title": "SystemStats.cshtml",
+              "DocumentMoniker": "C:\\Users\\lab_services_student\\Documents\\GitHub\\ST10443342_PROG6212_POE\\CMCS\\Views\\Admin\\SystemStats.cshtml",
+              "RelativeDocumentMoniker": "Views\\Admin\\SystemStats.cshtml",
+              "ToolTip": "C:\\Users\\lab_services_student\\Documents\\GitHub\\ST10443342_PROG6212_POE\\CMCS\\Views\\Admin\\SystemStats.cshtml",
+              "RelativeToolTip": "Views\\Admin\\SystemStats.cshtml",
+              "ViewState": "AgIAAFIAAAAAAAAAAAAgwHMAAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-17T23:57:00.062Z",
+              "WhenOpened": "2025-11-18T00:06:40.821Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "Dashboard.cshtml",
-              "DocumentMoniker": "C:\\Users\\lab_services_student\\Documents\\GitHub\\ST10443342_PROG6212_POE\\CMCS\\Views\\Manager\\Dashboard.cshtml",
-              "RelativeDocumentMoniker": "Views\\Manager\\Dashboard.cshtml",
-              "ToolTip": "C:\\Users\\lab_services_student\\Documents\\GitHub\\ST10443342_PROG6212_POE\\CMCS\\Views\\Manager\\Dashboard.cshtml",
-              "RelativeToolTip": "Views\\Manager\\Dashboard.cshtml",
-              "ViewState": "AgIAAJQAAAAAAAAAAAAgwLUAAAAGAAAAAAAAAA==",
+              "Title": "EditUser.cshtml",
+              "DocumentMoniker": "C:\\Users\\lab_services_student\\Documents\\GitHub\\ST10443342_PROG6212_POE\\CMCS\\Views\\Admin\\EditUser.cshtml",
+              "RelativeDocumentMoniker": "Views\\Admin\\EditUser.cshtml",
+              "ToolTip": "C:\\Users\\lab_services_student\\Documents\\GitHub\\ST10443342_PROG6212_POE\\CMCS\\Views\\Admin\\EditUser.cshtml",
+              "RelativeToolTip": "Views\\Admin\\EditUser.cshtml",
+              "ViewState": "AgIAAGYAAAAAAAAAAAAAwIkAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-17T23:55:33.894Z",
+              "WhenOpened": "2025-11-18T00:05:55.195Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "ViewHistory.cshtml",
-              "DocumentMoniker": "C:\\Users\\lab_services_student\\Documents\\GitHub\\ST10443342_PROG6212_POE\\CMCS\\Views\\Home\\ViewHistory.cshtml",
-              "RelativeDocumentMoniker": "Views\\Home\\ViewHistory.cshtml",
-              "ToolTip": "C:\\Users\\lab_services_student\\Documents\\GitHub\\ST10443342_PROG6212_POE\\CMCS\\Views\\Home\\ViewHistory.cshtml",
-              "RelativeToolTip": "Views\\Home\\ViewHistory.cshtml",
-              "ViewState": "AgIAAJwAAAAAAAAAAAAgwL0AAAABAAAAAAAAAA==",
+              "Title": "CreateUser.cshtml",
+              "DocumentMoniker": "C:\\Users\\lab_services_student\\Documents\\GitHub\\ST10443342_PROG6212_POE\\CMCS\\Views\\Admin\\CreateUser.cshtml",
+              "RelativeDocumentMoniker": "Views\\Admin\\CreateUser.cshtml",
+              "ToolTip": "C:\\Users\\lab_services_student\\Documents\\GitHub\\ST10443342_PROG6212_POE\\CMCS\\Views\\Admin\\CreateUser.cshtml",
+              "RelativeToolTip": "Views\\Admin\\CreateUser.cshtml",
+              "ViewState": "AgIAAG4AAAAAAAAAAAAAwJEAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-17T23:54:11.183Z",
+              "WhenOpened": "2025-11-18T00:05:30.722Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "UploadDocuments.cshtml",
-              "DocumentMoniker": "C:\\Users\\lab_services_student\\Documents\\GitHub\\ST10443342_PROG6212_POE\\CMCS\\Views\\Home\\UploadDocuments.cshtml",
-              "RelativeDocumentMoniker": "Views\\Home\\UploadDocuments.cshtml",
-              "ToolTip": "C:\\Users\\lab_services_student\\Documents\\GitHub\\ST10443342_PROG6212_POE\\CMCS\\Views\\Home\\UploadDocuments.cshtml",
-              "RelativeToolTip": "Views\\Home\\UploadDocuments.cshtml",
-              "ViewState": "AgIAAJoAAAAAAAAAAAAAwL0AAAABAAAAAAAAAA==",
+              "Title": "Reject.cshtml",
+              "DocumentMoniker": "C:\\Users\\lab_services_student\\Documents\\GitHub\\ST10443342_PROG6212_POE\\CMCS\\Views\\Claims\\Reject.cshtml",
+              "RelativeDocumentMoniker": "Views\\Claims\\Reject.cshtml",
+              "ToolTip": "C:\\Users\\lab_services_student\\Documents\\GitHub\\ST10443342_PROG6212_POE\\CMCS\\Views\\Claims\\Reject.cshtml",
+              "RelativeToolTip": "Views\\Claims\\Reject.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-17T23:53:04.331Z",
+              "WhenOpened": "2025-11-18T00:04:17.739Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "SubmitClaim.cshtml",
-              "DocumentMoniker": "C:\\Users\\lab_services_student\\Documents\\GitHub\\ST10443342_PROG6212_POE\\CMCS\\Views\\Home\\SubmitClaim.cshtml",
-              "RelativeDocumentMoniker": "Views\\Home\\SubmitClaim.cshtml",
-              "ToolTip": "C:\\Users\\lab_services_student\\Documents\\GitHub\\ST10443342_PROG6212_POE\\CMCS\\Views\\Home\\SubmitClaim.cshtml",
-              "RelativeToolTip": "Views\\Home\\SubmitClaim.cshtml",
-              "ViewState": "AgIAAMsAAAAAAAAAAAAAwO4AAAAIAAAAAAAAAA==",
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\lab_services_student\\Documents\\GitHub\\ST10443342_PROG6212_POE\\CMCS\\Views\\Claims\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Claims\\Index.cshtml",
+              "ToolTip": "C:\\Users\\lab_services_student\\Documents\\GitHub\\ST10443342_PROG6212_POE\\CMCS\\Views\\Claims\\Index.cshtml",
+              "RelativeToolTip": "Views\\Claims\\Index.cshtml",
+              "ViewState": "AgIAAE0AAAAAAAAAAAAqwHMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-17T23:52:34.248Z",
+              "WhenOpened": "2025-11-18T00:03:51.91Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
-              "Title": "GenerateReport.cshtml",
-              "DocumentMoniker": "C:\\Users\\lab_services_student\\Documents\\GitHub\\ST10443342_PROG6212_POE\\CMCS\\Views\\Home\\GenerateReport.cshtml",
-              "RelativeDocumentMoniker": "Views\\Home\\GenerateReport.cshtml",
-              "ToolTip": "C:\\Users\\lab_services_student\\Documents\\GitHub\\ST10443342_PROG6212_POE\\CMCS\\Views\\Home\\GenerateReport.cshtml",
-              "RelativeToolTip": "Views\\Home\\GenerateReport.cshtml",
-              "ViewState": "AgIAADIAAAAAAAAAAAAqwFgAAAAGAAAAAAAAAA==",
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "C:\\Users\\lab_services_student\\Documents\\GitHub\\ST10443342_PROG6212_POE\\CMCS\\Views\\Claims\\Details.cshtml",
+              "RelativeDocumentMoniker": "Views\\Claims\\Details.cshtml",
+              "ToolTip": "C:\\Users\\lab_services_student\\Documents\\GitHub\\ST10443342_PROG6212_POE\\CMCS\\Views\\Claims\\Details.cshtml",
+              "RelativeToolTip": "Views\\Claims\\Details.cshtml",
+              "ViewState": "AgIAADQBAAAAAAAAAAAAAEwBAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-17T23:50:50.622Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\lab_services_student\\Documents\\GitHub\\ST10443342_PROG6212_POE\\CMCS\\Views\\Home\\Index.cshtml",
-              "RelativeDocumentMoniker": "Views\\Home\\Index.cshtml",
-              "ToolTip": "C:\\Users\\lab_services_student\\Documents\\GitHub\\ST10443342_PROG6212_POE\\CMCS\\Views\\Home\\Index.cshtml",
-              "RelativeToolTip": "Views\\Home\\Index.cshtml",
-              "ViewState": "AgIAAAsBAAAAAAAAAAAqwDEBAAAGAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-17T23:49:05.27Z",
+              "WhenOpened": "2025-11-18T00:03:02.685Z",
               "EditorCaption": ""
             }
           ]

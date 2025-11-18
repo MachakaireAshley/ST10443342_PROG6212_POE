@@ -1,0 +1,116 @@
+﻿@model CMCS.Controllers.SystemStatsViewModel
+@{
+    ViewData["Title"] = "System Statistics";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h1>System Statistics</h1>
+        <p class="text-muted">Comprehensive overview of system usage and performance</p>
+    </div>
+</div>
+
+<!-- User Statistics -->
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">User Statistics</h5>
+            </div>
+            <div class="card-body">
+                <div class="row text-center">
+                    <div class="col-md-3">
+                        <div class="stat-card stat-card-total">
+                            <div class="display-6">@Model.TotalUsers</div>
+                            <p class="mb-0">Total Users</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-card">
+                            <div class="display-6 text-info">@Model.TotalLecturers</div>
+                            <p class="mb-0">Lecturers</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-card">
+                            <div class="display-6 text-warning">@Model.TotalCoordinators</div>
+                            <p class="mb-0">Coordinators</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-card">
+                            <div class="display-6 text-danger">@Model.TotalManagers</div>
+                            <p class="mb-0">Managers</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Claims Statistics -->
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Claims Statistics</h5>
+            </div>
+            <div class="card-body">
+                <div class="row text-center">
+                    <div class="col-md-3">
+                        <div class="stat-card stat-card-total">
+                            <div class="display-6">@Model.TotalClaims</div>
+                            <p class="mb-0">Total Claims</p>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="stat-card stat-card-pending">
+                            <div class="display-6">@Model.PendingClaims</div>
+                            <p class="mb-0">Pending</p>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="stat-card stat-card-approved">
+                            <div class="display-6">@Model.ApprovedClaims</div>
+                            <p class="mb-0">Approved</p>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="stat-card stat-card-rejected">
+                            <div class="display-6">@Model.RejectedClaims</div>
+                            <p class="mb-0">Rejected</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-card">
+                            <div class="display-6 text-success">R @Model.TotalAmount.ToString("N2")</div>
+                            <p class="mb-0">Total Amount</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Links -->
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Quick Actions</h5>
+            </div>
+            <div class="card-body">
+                <div class="btn-group" role="group">
+                    <a href="@Url.Action("Users", "Admin")" class="btn btn-primary">
+                        <i class="bi bi-people"></i> Manage Users
+                    </a>
+                    <a href="@Url.Action("Index", "Claims")" class="btn btn-info">
+                        <i class="bi bi-list"></i> View All Claims
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

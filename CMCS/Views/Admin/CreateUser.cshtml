@@ -1,0 +1,146 @@
+﻿@model CMCS.Controllers.CreateUserViewModel
+@{
+    ViewData["Title"] = "Create New User";
+}
+
+<div class="row">
+    <div class="col-md-8">
+        <h1>Create New User</h1>
+        <p class="text-muted">Add a new user to the system - HR Functionality</p>
+    </div>
+    <div class="col-md-4 text-end">
+        <a asp-action="Users" class="btn btn-secondary">
+            <i class="bi bi-arrow-left me-1"></i> Back to Users
+        </a>
+    </div>
+</div>
+
+<hr>
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="CreateUser" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label asp-for="FirstName" class="form-label"></label>
+                        <input asp-for="FirstName" class="form-control" />
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label asp-for="LastName" class="form-label"></label>
+                        <input asp-for="LastName" class="form-control" />
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Email" class="form-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Role" class="form-label"></label>
+                <select asp-for="Role" class="form-control" id="roleSelect">
+                    <option value="@CMCS.Models.UserRole.Lecturer">Lecturer</option>
+                    <option value="@CMCS.Models.UserRole.ProgramCoordinator">Program Coordinator</option>
+                    <option value="@CMCS.Models.UserRole.AcademicManager">Academic Manager (Admin)</option>
+                </select>
+                <span asp-validation-for="Role" class="text-danger"></span>
+            </div>
+
+            <!-- POE REQUIREMENT: Hourly Rate for Lecturers -->
+            <div class="form-group mb-3" id="hourlyRateGroup">
+                <label asp-for="HourlyRate" class="form-label"></label>
+                <div class="input-group">
+                    <span class="input-group-text">R</span>
+                    <input asp-for="HourlyRate" class="form-control" />
+                </div>
+                <span asp-validation-for="HourlyRate" class="text-danger"></span>
+                <div class="form-text">Set the hourly rate for this user (used for claim calculations)</div>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Password" class="form-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+                <div class="form-text">Password must be at least 6 characters long.</div>
+            </div>
+
+            <div class="form-group mb-4">
+                <label asp-for="ConfirmPassword" class="form-label"></label>
+                <input asp-for="ConfirmPassword" class="form-control" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-person-plus me-1"></i> Create User
+                </button>
+                <a asp-action="Users" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Role Information</h5>
+            </div>
+            <div class="card-body">
+                <h6><span class="badge bg-info">Lecturer</span></h6>
+                <p class="small">Can submit claims and view their own claim history. Hourly rate is required.</p>
+
+                <h6><span class="badge bg-warning">Program Coordinator</span></h6>
+                <p class="small">Can view all claims, approve/reject pending claims.</p>
+
+                <h6><span class="badge bg-danger">Academic Manager</span></h6>
+                <p class="small">Full system access including user management and final claim approval.</p>
+
+                <div class="alert alert-info mt-3">
+                    <h6><i class="bi bi-info-circle me-2"></i>HR Super User Notes</h6>
+                    <p class="small mb-0">
+                        As HR, you are responsible for setting up all user accounts and their hourly rates.
+                        Lecturers will use the hourly rate you set when submitting claims.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        // Show/hide hourly rate based on role selection
+        document.addEventListener('DOMContentLoaded', function() {
+            const roleSelect = document.getElementById('roleSelect');
+            const hourlyRateGroup = document.getElementById('hourlyRateGroup');
+
+            function toggleHourlyRate() {
+                const selectedRole = roleSelect.value;
+                // Show hourly rate only for Lecturers (POE requirement)
+                if (selectedRole === 'Lecturer') {
+                    hourlyRateGroup.style.display = 'block';
+                } else {
+                    hourlyRateGroup.style.display = 'none';
+                }
+            }
+
+            // Initial toggle
+            toggleHourlyRate();
+
+            // Toggle on change
+            roleSelect.addEventListener('change', toggleHourlyRate);
+        });
+    </script>
+}

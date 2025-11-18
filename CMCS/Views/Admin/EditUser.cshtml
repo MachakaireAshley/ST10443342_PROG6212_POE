@@ -1,0 +1,138 @@
+﻿@model CMCS.Controllers.EditUserViewModel
+@{
+    ViewData["Title"] = "Edit User";
+}
+
+<div class="row">
+    <div class="col-md-8">
+        <h1>Edit User</h1>
+        <p class="text-muted">Update user information and role</p>
+    </div>
+    <div class="col-md-4 text-end">
+        <a asp-action="Users" class="btn btn-secondary">
+            <i class="bi bi-arrow-left me-1"></i> Back to Users
+        </a>
+    </div>
+</div>
+
+<hr>
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="EditUser" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label asp-for="FirstName" class="form-label"></label>
+                        <input asp-for="FirstName" class="form-control" />
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label asp-for="LastName" class="form-label"></label>
+                        <input asp-for="LastName" class="form-control" />
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Email" class="form-label"></label>
+                <input asp-for="Email" class="form-control" readonly />
+                <span asp-validation-for="Email" class="text-danger"></span>
+                <div class="form-text">Email cannot be changed.</div>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Role" class="form-label"></label>
+                <select asp-for="Role" class="form-control" id="roleSelect">
+                    <option value="@CMCS.Models.UserRole.Lecturer">Lecturer</option>
+                    <option value="@CMCS.Models.UserRole.ProgramCoordinator">Program Coordinator</option>
+                    <option value="@CMCS.Models.UserRole.AcademicManager">Academic Manager (Admin)</option>
+                </select>
+                <span asp-validation-for="Role" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-4" id="hourlyRateGroup">
+                <label asp-for="HourlyRate" class="form-label"></label>
+                <div class="input-group">
+                    <span class="input-group-text">R</span>
+                    <input asp-for="HourlyRate" class="form-control" />
+                </div>
+                <span asp-validation-for="HourlyRate" class="text-danger"></span>
+                <div class="form-text">Hourly rate for lecturers (used for claim calculations)</div>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-check-circle me-1"></i> Update User
+                </button>
+                <a asp-action="Users" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">User Information</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>Email:</strong> @Model.Email</p>
+                <p>
+                    <strong>Current Role:</strong>
+                    <span class="badge
+                        @(Model.Role == CMCS.Models.UserRole.AcademicManager ? "bg-danger" :
+                                                                                                        Model.Role == CMCS.Models.UserRole.ProgramCoordinator ? "bg-warning" :
+                                                                                                        "bg-info")">
+                        @Model.Role
+                    </span>
+                </p>
+                @if (Model.Role == CMCS.Models.UserRole.Lecturer)
+                {
+                    <p><strong>Current Hourly Rate:</strong> R @Model.HourlyRate.ToString("N2")</p>
+                }
+                <div class="alert alert-info mt-3">
+                    <small>
+                        <i class="bi bi-info-circle me-1"></i>
+                        Changing a user's role will update their system permissions immediately.
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        // Show/hide hourly rate based on role selection
+        document.addEventListener('DOMContentLoaded', function() {
+            const roleSelect = document.getElementById('roleSelect');
+            const hourlyRateGroup = document.getElementById('hourlyRateGroup');
+
+            function toggleHourlyRate() {
+                const selectedRole = roleSelect.value;
+                // Show hourly rate only for Lecturers
+                if (selectedRole === 'Lecturer') {
+                    hourlyRateGroup.style.display = 'block';
+                } else {
+                    hourlyRateGroup.style.display = 'none';
+                }
+            }
+
+            // Initial toggle
+            toggleHourlyRate();
+
+            // Toggle on change
+            roleSelect.addEventListener('change', toggleHourlyRate);
+        });
+    </script>
+}
